@@ -38,7 +38,27 @@ public class FXMLController {
 
     @FXML
     void doContaArchi(ActionEvent event) {
-
+    	txtResult.appendText("\n\n\n");
+    	String sog=txtSoglia.getText();
+    	if(sog==null) {
+    		txtResult.appendText("inserire un valore numerico nell'area di testo");
+    		return;
+    	}
+    	try {
+    		double soglia=Double.parseDouble(sog);
+    		Boolean valido=this.model.verificaSoglia(soglia);
+    		if(valido) {
+    			txtResult.appendText("Il valore "+soglia+" è compreso nell'intervallo "+this.model.minimoGrafo()+"/"+this.model.massimoGrafo()+"\n");
+    		}
+    		else {
+    			txtResult.appendText("Il valore "+soglia+" NON è compreso nell'intervallo "+this.model.minimoGrafo()+"-"+this.model.massimoGrafo()+"\n");
+    		}
+    		
+    		txtResult.appendText("Soglia : "+soglia+" : Archi maggiori= "+this.model.contaArchiMaggiori(soglia)+" ; Archi Minori= "+this.model.contaArchiMinore(soglia));
+    	}
+    	catch(NumberFormatException e) {
+    		throw new NumberFormatException("inserire valore numerico");
+    	}
     }
 
     @FXML
@@ -57,6 +77,12 @@ public class FXMLController {
 
 	public void setModel(Model model) {
 		this.model = model ;
+		this.model.creaGrafo();
+		txtResult.appendText("GRAFO CREATO \n\n");
+		txtResult.appendText("Numero vertici : "+this.model.nVertici()+"\n");
+		txtResult.appendText("Numero archi : "+this.model.nArchi()+"\n");
+		txtResult.appendText("Peso minimo : "+this.model.minimoGrafo()+"\n");
+		txtResult.appendText("Peso massimo : "+this.model.massimoGrafo());
 		
 	}
 }
