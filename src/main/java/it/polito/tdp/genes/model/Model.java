@@ -15,10 +15,13 @@ public class Model {
 	private GenesDao dao;
 	private List<Integer> vertici;
 	private SimpleDirectedWeightedGraph<Integer,DefaultWeightedEdge> grafo;
+	private List<Integer> prova;
 	
 	public Model() {
 		this.dao= new GenesDao();
 		this.vertici= new ArrayList<>();
+		this.prova=new ArrayList<Integer>();
+		
 	}
 	
 	public void creaGrafo() {
